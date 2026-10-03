@@ -302,10 +302,13 @@ let activeCat = "All", query = "";
 
 function coverHTML(b, big){
   const sz = big ? "p-5 text-base" : "p-4 text-sm";
-  return `<div class="cover bg-gradient-to-br ${GRAD[b.c]} text-white rounded-lg shadow-lg aspect-[3/4] ${sz} flex flex-col justify-between">
-    <div class="flex items-center justify-between text-[10px] uppercase tracking-widest opacity-80"><span>E-Book</span><span>#${b.n}</span></div>
-    <div class="text-center"><div class="${big?'text-6xl':'text-4xl'}">${b.i}</div></div>
-    <div><p class="font-serif font-bold leading-snug line-clamp-3">${esc(b.t.split(':')[0])}</p><p class="mt-2 text-[10px] tracking-widest uppercase opacity-90">Parveen Kumar</p></div>
+  return `<div class="cover bg-slate-900 text-white rounded-lg shadow-lg aspect-[3/4] overflow-hidden relative flex flex-col justify-between">
+    <img src="images/cover${b.n}.jpg" alt="${esc(b.t)}" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'">
+    <div class="relative z-10 flex items-center justify-between text-[10px] uppercase tracking-widest bg-black/40 px-2 py-1 backdrop-blur-sm"><span>E-Book</span><span>#${b.n}</span></div>
+    <div class="relative z-10 p-2 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+      <p class="font-serif font-bold leading-snug line-clamp-3 text-xs sm:text-sm">${esc(b.t.split(':')[0])}</p>
+      <p class="mt-1 text-[9px] tracking-widest uppercase opacity-80">Parveen Kumar</p>
+    </div>
   </div>`;
 }
 
