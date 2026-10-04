@@ -318,7 +318,16 @@ function renderFilters(){
     const count = c==="All" ? BOOKS.length : BOOKS.filter(b=>b.c===c).length;
     return `<button data-cat="${esc(c)}" class="px-4 py-2 rounded-full text-sm font-semibold border transition ${on?'bg-indigo-600 text-white border-indigo-600':'bg-white text-slate-700 border-slate-300 hover:border-indigo-400'}">${esc(c)} <span class="opacity-70">(${count})</span></button>`;
   }).join("");
-  $("filters").querySelectorAll("button").forEach(b => b.onclick = () => { activeCat = b.dataset.cat; renderFilters(); renderGrid(); });
+  $("filters").querySelectorAll("button").forEach(b => b.onclick = () => { 
+    activeCat = b.dataset.cat; 
+    if(activeCat === "All") { 
+      history.pushState("", document.title, window.location.pathname + window.location.search); 
+    } else { 
+      window.location.hash = activeCat.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-'); 
+    }
+    renderFilters(); 
+    renderGrid(); 
+  });
 }
 
 function renderGrid(){
@@ -449,7 +458,15 @@ $("yr").textContent = new Date().getFullYear();
 $("heroCovers").innerHTML = [BOOKS[0],BOOKS[12],BOOKS[17],BOOKS[22],BOOKS[6],BOOKS[20]].map(b=>coverHTML(b)).join("");
 const sh = shareLinks(STORE_URL(), "Check out Parveen Kumar's official e-book store (Google Play Books):");
 $("storeShare").innerHTML = sh; $("footerShare").innerHTML = sh;
-renderFilters(); renderGrid();
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash;
+  if (hash === '#baking-culinary') { activeCat = "Baking & Culinary"; }
+  else if (hash === '#business-trading') { activeCat = "Business & Trading"; }
+  else if (hash === '#lifestyle-self-growth') { activeCat = "Lifestyle & Self-Growth"; }
+  else if (hash === '#fiction-politics') { activeCat = "Fiction & Politics"; }
+  renderFilters();
+  renderGrid();
+});
 </script>
 </body>
 </html>
