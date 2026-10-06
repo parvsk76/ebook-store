@@ -28,7 +28,7 @@ tailwind.config = { theme: { extend: { colors: { navy: { 900:'#0b1226', 800:'#11
   .fade-in{animation:fade .25s ease}
   @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 </style>
-  <!-- Google tag (gtag.js) -->
+ <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17928025787"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -36,6 +36,21 @@ tailwind.config = { theme: { extend: { colors: { navy: { 900:'#0b1226', 800:'#11
   gtag('js', new Date());
 
   gtag('config', 'AW-17928025787');
+
+  // Conversion tracking function
+  function gtag_report_conversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion', {
+        'send_to': 'AW-17928025787/Pa-OCInXy_ocELvt3-RC',
+        'transaction_id': '',
+        'event_callback': callback
+    });
+    return false;
+  }
 </script>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
@@ -354,7 +369,7 @@ function renderGrid(){
         <p class="text-sm text-slate-500">Format: <span class="text-slate-700 font-medium">${b.series?'E-book series':'Ebook'}</span></p>
       </div>
       <div class="mt-4 grid grid-cols-5 gap-2">
-        <a href="${b.u}" target="_blank" rel="noopener noreferrer" class="col-span-4 text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm py-3 rounded-xl shadow">Buy on Google Play</a>
+<a href="${b.u}" onclick="return gtag_report_conversion('${b.u}')" class="col-span-4 text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm py-3 rounded-xl shadow">Buy on Google Play</a>
         <button onclick="shareBook(${b.n})" class="border border-slate-300 hover:bg-slate-100 rounded-xl text-lg" title="Share this book" aria-label="Share">🔗</button>
       </div>
     </article>`).join("");
@@ -407,8 +422,8 @@ function openBook(n){
       <p class="mt-3 text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-3">${BOOK_DISCLAIMER[b.c]}</p>
       <p class="mt-3 text-xs text-slate-500">${b.series?'This link opens the series page on Google Play Books.':'This link opens the official book page on Google Play Books.'} The current price, sample and purchase options are shown there.</p>
       <div class="mt-5 flex flex-wrap gap-2">
-        <a href="${b.u}" target="_blank" rel="noopener noreferrer" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-3 rounded-xl">Buy on Google Play</a>
-        <button onclick="shareBook(${b.n})" class="border border-slate-300 hover:bg-slate-100 px-4 py-3 rounded-xl font-semibold">🔗 Share</button>
+<a href="${b.u}" onclick="return gtag_report_conversion('${b.u}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-3 rounded-xl">Buy on Google Play</a>
+<button onclick="shareBook(${b.n})" class="border border-slate-300 hover:bg-slate-100 px-4 py-3 rounded-xl font-semibold">🔗 Share</button>
       </div>
     </div>
   </div>`);
